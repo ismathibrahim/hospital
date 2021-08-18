@@ -1,0 +1,42 @@
+.side-nav {
+  background-color: #fff;
+  z-index: 10;
+  width: 230px;
+  height: 100vh;
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.05);
+
+  .logo {
+    width: 100%;
+    display: flex;
+    padding: 20px 0 20px 40px;
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--blue);
+  }
+
+  .nav-links {
+    display: flex;
+    flex-direction: column;
+
+    margin-top: 10px;
+
+    a {
+      // color: var(--black);
+      font-size: 14px;
+      padding: 5px 0 5px 40px;
+      font-weight: 500;
+      margin: 10px 0;
+      transition: color 0.2s;
+
+      &:hover {
+        color: var(--blue);
+      }
+
+      &.active {
+        color: var(--blue);
+
+        border-right: 3px solid var(--blue);
+      }
+    }
+  }
+}

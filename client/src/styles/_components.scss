@@ -1,0 +1,40 @@
+.card {
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.05);
+  background-color: #fff;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  font-size: 14px;
+  padding: 15px;
+  color: var(--black);
+  border-radius: 3px;
+  border: 1px solid var(--border-grey);
+  margin-bottom: 15px;
+
+  &:focus {
+    outline-color: var(--blue);
+  }
+
+  &::placeholder {
+    color: var(--dark-grey);
+  }
+}
+
+button {
+  text-transform: uppercase;
+  min-width: 100px;
+  cursor: pointer;
+  padding: 15px;
+  color: white;
+  border: none;
+  background-color: var(--blue);
+  border-radius: 3px;
+  filter: drop-shadow(0px 4px 10px rgba(76, 132, 255, 0.3));
+  transition: 0.3s;
+
+  &:hover {
+    filter: brightness(110%);
+  }
+}
