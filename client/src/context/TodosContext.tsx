@@ -1,5 +1,5 @@
 import React, { useReducer, createContext, useContext } from "react";
-import * as todoService from "../lib/api/todos";
+import * as todoService from "../lib/api/appointments";
 import TodosReducer from "./TodosReducer";
 import { TodoType } from "../lib/types";
 
@@ -22,7 +22,7 @@ export const TodosProvider = ({ children }: { children: React.ReactNode }) => {
 
   const getAllTodos = async () => {
     try {
-      const todos = await todoService.getAllTodos();
+      const todos = await todoService.getAppointmentsForPatient();
 
       dispatch({
         type: "GET_TODOS",

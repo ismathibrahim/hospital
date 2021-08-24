@@ -139,6 +139,9 @@ export const login = async (req: Request, res: Response) => {
     const token = createJwt({
       id: user.id,
       role,
+      patientId: user.patientProfile?.id,
+      doctorId: user.doctorProfile?.id,
+      adminId: user.adminProfile?.id,
     });
 
     res.json({ token, user });

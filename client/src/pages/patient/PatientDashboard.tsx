@@ -5,6 +5,9 @@ import { useUserContext } from "../../context/UserContext";
 import Header from "../../components/Layout/Header";
 
 import "../Dashboard.scss";
+import PatientAppointments from "./PatientAppointments";
+import Doctors from "./Doctors";
+import DoctorPage from "./DoctorPage";
 
 const patientLinks = [
   {
@@ -14,6 +17,10 @@ const patientLinks = [
   {
     name: "Appointments",
     path: "/appointments",
+  },
+  {
+    name: "Doctors",
+    path: "/doctors",
   },
 ];
 
@@ -32,8 +39,18 @@ const PatientDashboard = () => {
       <Header userName={user?.patientProfile?.name} links={patientLinks} />
       <div className="container">
         <Switch>
-          <Route path={"/appointments"}></Route>
-          <Route exact path={match.path}></Route>
+          <Route exact path={match.path}>
+            Dashboard
+          </Route>
+          <Route path={`${match.path}/appointments`}>
+            <PatientAppointments />
+          </Route>
+          <Route exact path={`${match.path}/doctors`}>
+            <Doctors />
+          </Route>
+          <Route path={`${match.path}/doctors/:id`}>
+            <DoctorPage />
+          </Route>
         </Switch>
       </div>
     </div>

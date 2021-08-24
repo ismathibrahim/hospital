@@ -7,6 +7,47 @@ import { NextFunction, Request, Response } from "express";
 import { UserStoredInToken } from "../interfaces/auth.interface";
 import { RequestWithUser } from "../interfaces/requests.interface";
 
+export const getAllDoctors = async (req: Request, res: Response) => {
+  try {
+    const doctors = await prisma.doctor.findMany({
+      select: {
+        id: true,
+        name: true,
+        specialty: true,
+        gender: true,
+        qualification: true,
+        experience: true,
+      },
+    });
+
+    res.json(doctors);
+  } catch (error) {
+    console.error(error.message);
+    return res.status(403).json("Server error");
+  }
+};
+
+export const getDoctor = async (req: Request, res: Response) => {
+  try {
+    const doctors = await prisma.doctor.findUnique({
+      where: { id: Number(req.params.id) },
+      select: {
+        id: true,
+        name: true,
+        specialty: true,
+        gender: true,
+        qualification: true,
+        experience: true,
+      },
+    });
+
+    res.json(doctors);
+  } catch (error) {
+    console.error(error.message);
+    return res.status(403).json("Server error");
+  }
+};
+
 export const register = async (req: Request, res: Response) => {
   try {
     const {

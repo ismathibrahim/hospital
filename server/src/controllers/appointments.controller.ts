@@ -7,16 +7,16 @@ import {
 } from "../interfaces/requests.interface";
 
 export const getAllAppointmentsForPatient = async (
-  req: RequestWithPatient,
+  req: RequestWithUser,
   res: Response
 ) => {
   try {
-    console.log(req.patientId);
-    const tasks = await prisma.appointment.findMany({
-      where: { patientId: Number(req.patientId) },
+    console.log(req.user.patientId);
+    const appointments = await prisma.appointment.findMany({
+      where: { patientId: Number(req.user.patientId) },
     });
 
-    res.json(tasks);
+    res.json(appointments);
   } catch (error) {
     console.error(error.message);
     return res.status(403).json("Server error");
@@ -24,15 +24,15 @@ export const getAllAppointmentsForPatient = async (
 };
 
 export const getAllAppointmentsForDoctor = async (
-  req: RequestWithDoctor,
+  req: RequestWithUser,
   res: Response
 ) => {
   try {
-    const tasks = await prisma.appointment.findMany({
-      where: { doctorId: Number(req.doctorId) },
+    const appointments = await prisma.appointment.findMany({
+      where: { doctorId: Number(req.user.doctorId) },
     });
 
-    res.json(tasks);
+    res.json(appointments);
   } catch (error) {
     console.error(error.message);
     return res.status(403).json("Server error");
@@ -41,19 +41,31 @@ export const getAllAppointmentsForDoctor = async (
 
 export const createAppointment = async (req: Request, res: Response) => {
   try {
-    const { startTime, endTime, status, patientId, doctorId } = req.body;
+    const {
+      startTime,
+      date,
+      endTime,
+      status,
+      patientId,
+      doctorId,
+      reason,
+      notes,
+    } = req.body;
 
-    const newTodo = await prisma.appointment.create({
+    const newAppointment = await prisma.appointment.create({
       data: {
+        date: new Date(date),
         startTime: new Date(startTime),
         endTime: new Date(endTime),
         status,
         patient: { connect: { id: Number(patientId) } },
         doctor: { connect: { id: Number(doctorId) } },
+        reason,
+        notes,
       },
     });
 
-    res.json(newTodo);
+    res.json(newAppointment);
   } catch (error) {
     console.error(error.message);
     return res.status(403).json("Server error");
@@ -65,12 +77,12 @@ export const updateAppointment = async (req: Request, res: Response) => {
     const { id } = req.params;
     const { startTime, endTime, status, patientId, doctorId } = req.body;
 
-    const task = await prisma.appointment.update({
+    const appointments = await prisma.appointment.update({
       where: { id: Number(id) },
       data: { startTime, endTime, status, patientId, doctorId },
     });
 
-    res.json(task);
+    res.json(appointments);
   } catch (error) {
     console.error(error.message);
     return res.status(403).json("Server error");
@@ -81,11 +93,11 @@ export const deleteAppointment = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
 
-    const task = await prisma.appointment.delete({
+    const appointments = await prisma.appointment.delete({
       where: { id: Number(id) },
     });
 
-    res.json(task);
+    res.json(appointments);
   } catch (error) {
     console.error(error.message);
     return res.status(403).json("Server error");

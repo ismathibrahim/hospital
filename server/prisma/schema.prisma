@@ -52,13 +52,16 @@ model Doctor {
 model Appointment {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
-  startTime DateTime
-  endTime   DateTime
+  date      DateTime @db.Date
+  startTime DateTime @db.Time
+  endTime   DateTime @db.Time
   status    String
   patient   Patient  @relation(fields: [patientId], references: [id])
   patientId Int
   doctor    Doctor   @relation(fields: [doctorId], references: [id])
   doctorId  Int
+  reason    String
+  notes     String
 }
 
 enum Role {

@@ -1,19 +1,18 @@
-export const getAllTodos = async () => {
+import axiosClient from "./axiosClient";
+
+export const getAppointmentsForPatient = async () => {
   try {
-    const response = await fetch("http://localhost:5000/todos", {
-      method: "GET",
-      headers: { token: localStorage.token },
-    });
+    const config = { headers: { token: localStorage.token } };
 
-    const parseRes = await response.json();
+    const response = await axiosClient.get("/appointments/patient", config);
 
-    return parseRes;
+    return response.data;
   } catch (error) {
     console.error(error.message);
   }
 };
 
-export const addTodo = async (description : string) => {
+export const addTodo = async (description: string) => {
   try {
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -49,7 +48,7 @@ export const editTodo = async (id: number, description: string) => {
   }
 };
 
-export const deleteTodo = async (id : number) => {
+export const deleteTodo = async (id: number) => {
   try {
     await fetch(`http://localhost:5000/todos/${id}`, {
       method: "DELETE",

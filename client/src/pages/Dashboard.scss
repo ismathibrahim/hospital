@@ -1,6 +1,7 @@
 .dashboard {
   display: flex;
   .container {
-    margin: 130px 50px 100px 50px;
+    max-width: 1200px;
+    margin: 130px auto;
   }
 }
