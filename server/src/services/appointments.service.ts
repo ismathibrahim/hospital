@@ -113,3 +113,12 @@ export const noShowAppointment = async (id: number) => {
     },
   });
 };
+
+export const completeAppointment = async (id: number) => {
+  return await prisma.appointment.update({
+    where: { id: id },
+    data: {
+      status: "COMPLETED",
+    },
+  });
+};

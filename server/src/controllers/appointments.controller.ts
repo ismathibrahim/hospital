@@ -130,3 +130,18 @@ export const noShowAppointment = async (req: Request, res: Response) => {
     return res.status(403).json("Server error");
   }
 };
+
+export const completeAppointment = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+
+    const appointment = await appointmentService.completeAppointment(
+      Number(id)
+    );
+
+    res.json(appointment);
+  } catch (error: any) {
+    console.error(error.message);
+    return res.status(403).json("Server error");
+  }
+};

@@ -8,7 +8,7 @@ export const getAppointment = async (id: number) => {
     const response = await axiosClient.get(`/appointments/${id}`, config);
 
     return response.data;
-  } catch (error) {
+  } catch (error: any) {
     console.error(error.message);
   }
 };
@@ -20,7 +20,7 @@ export const getAppointmentsForPatient = async () => {
     const response = await axiosClient.get("/appointments/patient", config);
 
     return response.data;
-  } catch (error) {
+  } catch (error: any) {
     console.error(error.message);
   }
 };
@@ -32,7 +32,7 @@ export const getAppointmentsForDoctor = async () => {
     const response = await axiosClient.get("/appointments/doctor", config);
 
     return response.data;
-  } catch (error) {
+  } catch (error: any) {
     console.error(error.message);
   }
 };
@@ -50,7 +50,7 @@ export const getAppointmentsForDoctorByDate = async (
     );
 
     return response.data;
-  } catch (error) {
+  } catch (error: any) {
     console.error(error.message);
   }
 };
@@ -66,7 +66,75 @@ export const createAppointment = async (newAppointment: NewAppointment) => {
     );
 
     return response.data;
-  } catch (error) {
+  } catch (error: any) {
+    console.error(error.message);
+  }
+};
+
+export const cancelAppointment = async (id: number) => {
+  try {
+    const config = { headers: { token: localStorage.token } };
+
+    const response = await axiosClient.put(
+      `/appointments/cancel/${id}`,
+      null,
+      config
+    );
+
+    return response.data;
+  } catch (error: any) {
+    console.error(error.message);
+  }
+};
+
+export const rescheduleAppointment = async (
+  id: number,
+  date: string,
+  time: string
+) => {
+  try {
+    const config = { headers: { token: localStorage.token } };
+
+    const response = await axiosClient.put(
+      `/appointments/reschedule/${id}`,
+      { date, time },
+      config
+    );
+
+    return response.data;
+  } catch (error: any) {
+    console.error(error.message);
+  }
+};
+
+export const noshowAppointment = async (id: number) => {
+  try {
+    const config = { headers: { token: localStorage.token } };
+
+    const response = await axiosClient.put(
+      `/appointments/noshow/${id}`,
+      null,
+      config
+    );
+
+    return response.data;
+  } catch (error: any) {
+    console.error(error.message);
+  }
+};
+
+export const completeAppointment = async (id: number) => {
+  try {
+    const config = { headers: { token: localStorage.token } };
+
+    const response = await axiosClient.put(
+      `/appointments/complete/${id}`,
+      null,
+      config
+    );
+
+    return response.data;
+  } catch (error: any) {
     console.error(error.message);
   }
 };
