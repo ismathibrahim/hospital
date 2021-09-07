@@ -87,32 +87,44 @@ export const createAppointment = async (req: Request, res: Response) => {
   }
 };
 
-export const updateAppointment = async (req: Request, res: Response) => {
+export const cancelAppointment = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const { time, status, patientId, doctorId } = req.body;
 
-    const appointments = await prisma.appointment.update({
-      where: { id: Number(id) },
-      data: { time, status, patientId, doctorId },
-    });
+    const appointment = await appointmentService.cancelAppointment(Number(id));
 
-    res.json(appointments);
+    res.json(appointment);
   } catch (error: any) {
     console.error(error.message);
     return res.status(403).json("Server error");
   }
 };
 
-export const deleteAppointment = async (req: Request, res: Response) => {
+export const rescheduleAppointment = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const { date, time } = req.body;
+
+    const appointment = await appointmentService.rescheduleAppointment({
+      id: Number(id),
+      date: new Date(date),
+      time,
+    });
+
+    res.json(appointment);
+  } catch (error: any) {
+    console.error(error.message);
+    return res.status(403).json("Server error");
+  }
+};
+
+export const noShowAppointment = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
 
-    const appointments = await prisma.appointment.delete({
-      where: { id: Number(id) },
-    });
+    const appointment = await appointmentService.noShowAppointment(Number(id));
 
-    res.json(appointments);
+    res.json(appointment);
   } catch (error: any) {
     console.error(error.message);
     return res.status(403).json("Server error");

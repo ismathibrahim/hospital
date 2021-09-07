@@ -17,10 +17,10 @@ router
 
 router.route("/doctor").get(appointmentsController.getAllAppointmentsForDoctor);
 
-router
-  .route("/:id")
-  .get(appointmentsController.getAppointment)
-  .put(appointmentsController.updateAppointment)
-  .delete(appointmentsController.deleteAppointment);
+router.route("/:id").get(appointmentsController.getAppointment);
+
+router.route("/cancel/:id").get(appointmentsController.cancelAppointment);
+router.route("/noshow/:id").get(appointmentsController.noShowAppointment);
+router.route("/reschedule/:id").get(appointmentsController.noShowAppointment);
 
 export default router;

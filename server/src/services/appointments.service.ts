@@ -1,4 +1,4 @@
-import { CreateAppointmentDto } from "../lib/dtos";
+import { CreateAppointmentDto, RescheduleAppointmentDto } from "../lib/dtos";
 import prisma from "../lib/prisma";
 
 export const getAppointment = async (id: number) => {
@@ -79,6 +79,37 @@ export const createAppointment = async (
       doctor: { connect: { id: doctorId } },
       reason,
       notes,
+    },
+  });
+};
+
+export const cancelAppointment = async (id: number) => {
+  return await prisma.appointment.update({
+    where: { id: id },
+    data: {
+      status: "CANCELLED",
+    },
+  });
+};
+
+export const rescheduleAppointment = async (
+  rescheduleAppointmentDto: RescheduleAppointmentDto
+) => {
+  const { id, date, time } = rescheduleAppointmentDto;
+  return await prisma.appointment.update({
+    where: { id: id },
+    data: {
+      date,
+      time,
+    },
+  });
+};
+
+export const noShowAppointment = async (id: number) => {
+  return await prisma.appointment.update({
+    where: { id: id },
+    data: {
+      status: "NOSHOW",
     },
   });
 };

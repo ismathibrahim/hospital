@@ -9,6 +9,12 @@ export interface CreateAppointmentDto {
   notes: string;
 }
 
+export interface RescheduleAppointmentDto {
+  id: number;
+  date: Date;
+  time: string;
+}
+
 export interface LoginDto {
   email: string;
   password: string;
