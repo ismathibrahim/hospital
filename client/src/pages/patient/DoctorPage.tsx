@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useRouteMatch } from "react-router-dom";
+import { useRouteMatch, useHistory } from "react-router-dom";
 import Calendar from "../../components/Calendar/Calendar";
 import { enGB } from "date-fns/locale";
 import { DatePicker } from "react-nice-dates";
@@ -17,7 +17,7 @@ const DoctorPage = () => {
   const { user } = useUserContext();
   const [doctor, setDoctor] = useState<Doctor | null>(null);
   const [date, setDate] = useState<Date>();
-
+  let history = useHistory();
   const [inputs, setInputs] = useState({
     reason: "",
     notes: "",
@@ -67,6 +67,7 @@ const DoctorPage = () => {
     const response = await createAppointment(newAppointment);
 
     hideModal();
+    history.push(`/portal/appointments/${response.id}`);
   };
 
   let match = useRouteMatch<{ id: string }>();
