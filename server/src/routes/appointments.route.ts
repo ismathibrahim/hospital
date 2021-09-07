@@ -19,8 +19,8 @@ router.route("/doctor").get(appointmentsController.getAllAppointmentsForDoctor);
 
 router.route("/:id").get(appointmentsController.getAppointment);
 
-router.route("/cancel/:id").get(appointmentsController.cancelAppointment);
-router.route("/noshow/:id").get(appointmentsController.noShowAppointment);
-router.route("/reschedule/:id").get(appointmentsController.noShowAppointment);
+router.route("/cancel/:id").put(appointmentsController.cancelAppointment);
+router.route("/noshow/:id").put(appointmentsController.noShowAppointment);
+router.route("/reschedule/:id").put(appointmentsController.noShowAppointment);
 
 export default router;
