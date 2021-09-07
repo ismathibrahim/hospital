@@ -10,7 +10,7 @@ export const loginUser = async (
     const response = await axiosClient.post("/users/login", data);
 
     return response.data;
-  } catch (error) {
+  } catch (error: any) {
     console.error(error.message);
   }
 };
@@ -22,7 +22,7 @@ export const getCurrentUser = async () => {
     const response = await axiosClient.get("/users/current-user", config);
 
     return response.data;
-  } catch (error) {
+  } catch (error: any) {
     console.error(error.message);
   }
 };
@@ -34,7 +34,7 @@ export const verifyLogin = async () => {
     const response = await axiosClient.get("/users/verify-login", config);
 
     return response.data;
-  } catch (error) {
+  } catch (error: any) {
     console.error(error.message);
   }
 };

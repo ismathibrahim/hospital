@@ -1,7 +1,10 @@
 import React, { FormEvent, useState } from "react";
 import { Link, RouteComponentProps } from "react-router-dom";
-
 import { useUserContext } from "../../context/UserContext";
+import { registerPatient } from "../../lib/api/patients";
+import { composeDateString } from "../../lib/utils/time";
+import "./Register.scss";
+
 const Register = () => {
   const { login, logout } = useUserContext();
 
@@ -9,6 +12,11 @@ const Register = () => {
     name: "",
     email: "",
     password: "",
+    gender: "",
+    day: "",
+    month: "",
+    year: "",
+    phone: "",
   });
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -19,62 +27,109 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      const body = { name, email, password };
-      const response = await fetch("http://localhost:5000/users/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
+      const body = {
+        name,
+        email,
+        password,
+        gender,
+        phone,
+        birthday: composeDateString(year, month, day),
+      };
+      const response = await registerPatient(body);
 
-      const parseRes = await response.json();
-
-      if (parseRes.token) {
-        localStorage.setItem("token", parseRes.token);
+      if (response.token) {
+        localStorage.setItem("token", response.token);
         login();
       } else {
         logout();
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error(error.message);
     }
   };
 
-  const { name, email, password } = inputs;
+  const { name, email, password, day, month, year, gender, phone } = inputs;
   return (
     <div className="login-page">
       <div className="wrapper card">
         <h2>Register Patient</h2>
         <form onSubmit={onSubmitForm}>
+          <p>Name</p>
           <input
             type="text"
             name="name"
             placeholder="Name"
             required
-            className="form-control my-3"
             value={name}
             onChange={(e) => onChange(e)}
           />
+          <p>Email</p>
           <input
             type="email"
             name="email"
             placeholder="Email"
             required
-            className="form-control my-3"
             value={email}
             onChange={(e) => onChange(e)}
           />
+          <p>Password</p>
           <input
             type="password"
             name="password"
             placeholder="Password"
             required
-            className="form-control my-3"
             value={password}
+            onChange={(e) => onChange(e)}
+          />
+          <p>Gender</p>
+          <input
+            type="text"
+            name="gender"
+            placeholder="Gender"
+            required
+            value={gender}
+            onChange={(e) => onChange(e)}
+          />
+          <p>Birthday</p>
+          <div className="birthday-input">
+            <input
+              type="text"
+              name="day"
+              placeholder="DD"
+              required
+              value={day}
+              onChange={(e) => onChange(e)}
+            />
+            <input
+              type="text"
+              name="month"
+              placeholder="MM"
+              required
+              value={month}
+              onChange={(e) => onChange(e)}
+            />
+            <input
+              type="text"
+              name="year"
+              placeholder="YYYY"
+              required
+              value={year}
+              onChange={(e) => onChange(e)}
+            />
+          </div>
+
+          <p>Phone</p>
+          <input
+            type="text"
+            name="phone"
+            placeholder="Phone"
+            required
+            value={phone}
             onChange={(e) => onChange(e)}
           />
           <div className="buttons">
             <Link to="/patient/login">Login</Link>
-            <button className="btn btn-success btn-block">Register</button>
+            <button>Register</button>
           </div>
         </form>
       </div>

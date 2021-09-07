@@ -16,7 +16,7 @@ const Dashboard = () => {
   if (loading) return <>Loading</>;
   if (user === null) return null;
 
-  if (user?.role === Role.ADMIN) return <AdminDashboard user={user} />;
+  if (user?.role === Role.ADMIN) return <AdminDashboard />;
   if (user?.role === Role.DOCTOR) return <DoctorDashboard />;
 
   return <PatientDashboard />;

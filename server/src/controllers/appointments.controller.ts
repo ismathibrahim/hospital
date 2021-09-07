@@ -1,23 +1,32 @@
 import prisma from "../lib/prisma";
 import { Request, Response } from "express";
-import {
-  RequestWithUser,
-  RequestWithDoctor,
-  RequestWithPatient,
-} from "../interfaces/requests.interface";
+import { RequestWithUser } from "../interfaces/requests.interface";
+import * as appointmentService from "../services/appointments.service";
+
+export const getAppointment = async (req: RequestWithUser, res: Response) => {
+  try {
+    const appointment = await appointmentService.getAppointment(
+      Number(req.params.id)
+    );
+
+    res.json(appointment);
+  } catch (error: any) {
+    console.error(error.message);
+    return res.status(403).json("Server error");
+  }
+};
 
 export const getAllAppointmentsForPatient = async (
   req: RequestWithUser,
   res: Response
 ) => {
   try {
-    console.log(req.user.patientId);
-    const appointments = await prisma.appointment.findMany({
-      where: { patientId: Number(req.user.patientId) },
-    });
+    const appointments = await appointmentService.getAllAppointmentsForPatient(
+      Number(req.user.patientId)
+    );
 
     res.json(appointments);
-  } catch (error) {
+  } catch (error: any) {
     console.error(error.message);
     return res.status(403).json("Server error");
   }
@@ -28,12 +37,31 @@ export const getAllAppointmentsForDoctor = async (
   res: Response
 ) => {
   try {
-    const appointments = await prisma.appointment.findMany({
-      where: { doctorId: Number(req.user.doctorId) },
-    });
+    const appointments = await appointmentService.getAllAppointmentsForDoctor(
+      Number(req.user.doctorId)
+    );
 
     res.json(appointments);
-  } catch (error) {
+  } catch (error: any) {
+    console.error(error.message);
+    return res.status(403).json("Server error");
+  }
+};
+
+export const getAppointmentsForDoctorByDate = async (
+  req: RequestWithUser,
+  res: Response
+) => {
+  try {
+    const { doctorId, date } = req.params;
+    const appointments =
+      await appointmentService.getAppointmentsForDoctorByDate(
+        Number(doctorId),
+        new Date(date)
+      );
+
+    res.json(appointments);
+  } catch (error: any) {
     console.error(error.message);
     return res.status(403).json("Server error");
   }
@@ -41,32 +69,19 @@ export const getAllAppointmentsForDoctor = async (
 
 export const createAppointment = async (req: Request, res: Response) => {
   try {
-    const {
-      startTime,
-      date,
-      endTime,
-      status,
-      patientId,
-      doctorId,
+    const { time, date, patientId, doctorId, reason, notes } = req.body;
+
+    const newAppointment = await appointmentService.createAppointment({
+      date: new Date(date),
+      time: time,
+      patientId: Number(patientId),
+      doctorId: Number(doctorId),
       reason,
       notes,
-    } = req.body;
-
-    const newAppointment = await prisma.appointment.create({
-      data: {
-        date: new Date(date),
-        startTime: new Date(startTime),
-        endTime: new Date(endTime),
-        status,
-        patient: { connect: { id: Number(patientId) } },
-        doctor: { connect: { id: Number(doctorId) } },
-        reason,
-        notes,
-      },
     });
 
     res.json(newAppointment);
-  } catch (error) {
+  } catch (error: any) {
     console.error(error.message);
     return res.status(403).json("Server error");
   }
@@ -75,15 +90,15 @@ export const createAppointment = async (req: Request, res: Response) => {
 export const updateAppointment = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const { startTime, endTime, status, patientId, doctorId } = req.body;
+    const { time, status, patientId, doctorId } = req.body;
 
     const appointments = await prisma.appointment.update({
       where: { id: Number(id) },
-      data: { startTime, endTime, status, patientId, doctorId },
+      data: { time, status, patientId, doctorId },
     });
 
     res.json(appointments);
-  } catch (error) {
+  } catch (error: any) {
     console.error(error.message);
     return res.status(403).json("Server error");
   }
@@ -98,7 +113,7 @@ export const deleteAppointment = async (req: Request, res: Response) => {
     });
 
     res.json(appointments);
-  } catch (error) {
+  } catch (error: any) {
     console.error(error.message);
     return res.status(403).json("Server error");
   }

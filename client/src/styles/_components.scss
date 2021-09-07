@@ -5,9 +5,11 @@
 
 input[type="text"],
 input[type="email"],
-input[type="password"] {
+input[type="password"],
+input[type="number"],
+textarea {
   font-size: 14px;
-  padding: 15px;
+  padding: 10px;
   color: var(--black);
   border-radius: 3px;
   border: 1px solid var(--border-grey);
@@ -20,6 +22,10 @@ input[type="password"] {
   &::placeholder {
     color: var(--dark-grey);
   }
+}
+
+textarea {
+  resize: none;
 }
 
 button {
@@ -37,4 +43,8 @@ button {
   &:hover {
     filter: brightness(110%);
   }
+}
+
+hr {
+  border-top: 1px solid var(--border-grey);
 }

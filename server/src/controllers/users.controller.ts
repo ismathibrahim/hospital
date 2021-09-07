@@ -1,28 +1,15 @@
-import prisma from "../lib/prisma";
 import { Request, Response } from "express";
 import { RequestWithUser } from "../interfaces/requests.interface";
+import * as userService from "../services/users.service";
 
 export const getUser = async (req: Request, res: Response) => {
-  const userId = Number(req.params.id);
-  const user = await prisma.user.findUnique({
-    where: { id: Number(userId) },
-  });
+  const user = await userService.getUser(Number(req.params.id));
 
   res.json(user);
 };
 
 export const getCurrentUser = async (req: RequestWithUser, res: Response) => {
-  const user = await prisma.user.findUnique({
-    where: { id: Number(req.user.id) },
-    select: {
-      id: true,
-      email: true,
-      role: true,
-      patientProfile: true,
-      doctorProfile: true,
-      adminProfile: true,
-    },
-  });
+  const user = await userService.getUser(Number(req.user.id));
 
   res.json(user);
 };

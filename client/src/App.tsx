@@ -1,10 +1,5 @@
 import { Suspense, useEffect } from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useUserContext } from "./context/UserContext";
 
 import Landing from "./pages/Landing";
@@ -15,6 +10,7 @@ import PatientRegister from "./pages/patient/PatientRegister";
 import PatientLogin from "./pages/patient/PatientLogin";
 import DoctorRegister from "./pages/doctor/DoctorRegister";
 import DoctorLogin from "./pages/doctor/DoctorLogin";
+import AdminLogin from "./pages/admin/AdminLogin";
 
 import "./styles/main.scss";
 
@@ -52,6 +48,10 @@ function App() {
             isAuthenticated={isAuthenticated}
           >
             <DoctorRegister />
+          </PublicRoute>
+
+          <PublicRoute path="/admin/login" isAuthenticated={isAuthenticated}>
+            <AdminLogin />
           </PublicRoute>
 
           <PrivateRoute path="/portal" isAuthenticated={isAuthenticated}>

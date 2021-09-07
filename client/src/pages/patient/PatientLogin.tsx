@@ -28,7 +28,7 @@ const Login = () => {
       } else {
         logout();
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error(error.message);
     }
   };

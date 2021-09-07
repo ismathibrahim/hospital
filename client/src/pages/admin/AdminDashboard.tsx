@@ -1,49 +1,66 @@
-import React from "react";
-import { Route, Switch, useRouteMatch } from "react-router";
-import InputTodo from "../../components/InputTodo";
-import Header from "../../components/Layout/Header";
-import SideNav from "../../components/Layout/SideNav";
-import ListTodos from "../../components/ListTodos";
-import { TodosProvider } from "../../context/TodosContext";
-import { UserType } from "../../lib/types";
+import React, { useEffect } from "react";
+import { Switch, Route, useRouteMatch } from "react-router-dom";
+import { useUserContext } from "../../context/UserContext";
 
-type Props = {
-  user: UserType;
-};
+import Header from "../../components/Layout/Header";
+
+import "../Dashboard.scss";
+import Statistics from "./Statistics";
+import Doctors from "./Doctors";
+import NewDoctor from "./NewDoctor";
+import DoctorPage from "./DoctorPage";
+import AppointmentDetails from "./AppointmentDetails";
 
 const adminLinks = [
   {
     name: "Dashboard",
     path: "",
+    exact: true,
   },
   {
-    name: "Appointments",
-    path: "/appointments",
+    name: "Statistics",
+    path: "/statistics",
+    exact: true,
   },
   {
     name: "Doctors",
     path: "/doctors",
+    exact: true,
   },
 ];
 
-const AdminAppointments = ({ user }: Props) => {
+const AdminDashboard = () => {
+  const { user } = useUserContext();
   let match = useRouteMatch();
+
+  useEffect(() => {
+    // eslint-disable-next-line
+  }, []);
+
+  if (user === null) return null;
 
   return (
     <div className="dashboard">
-      <Header userName="Username" links={adminLinks} />
-      <SideNav />
+      <Header userName={user?.adminProfile?.name} links={adminLinks} />
       <div className="container">
         <Switch>
-          <Route path={`${match.path}/appointments`}></Route>
-          <Route path="/statistics"></Route>
-          <Route path="/messages"></Route>
-          <Route path="/notifications"></Route>
+          <Route exact path={`${match.path}/statistics`}>
+            <Statistics />
+          </Route>
+          <Route path={`${match.path}/appointments/:id`}>
+            <AppointmentDetails />
+          </Route>
+          <Route exact path={`${match.path}/doctors`}>
+            <Doctors />
+          </Route>
+          <Route exact path={`${match.path}/new-doctor`}>
+            <NewDoctor />
+          </Route>
+          <Route path={`${match.path}/doctors/:id`}>
+            <DoctorPage />
+          </Route>
           <Route exact path={match.path}>
-            <TodosProvider>
-              <InputTodo />
-              <ListTodos />
-            </TodosProvider>
+            Admin Dashboard
           </Route>
         </Switch>
       </div>
@@ -51,4 +68,4 @@ const AdminAppointments = ({ user }: Props) => {
   );
 };
 
-export default AdminAppointments;
+export default AdminDashboard;

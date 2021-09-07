@@ -8,19 +8,23 @@ import "../Dashboard.scss";
 import PatientAppointments from "./PatientAppointments";
 import Doctors from "./Doctors";
 import DoctorPage from "./DoctorPage";
+import AppointmentDetails from "./AppointmentDetails";
 
 const patientLinks = [
   {
     name: "Dashboard",
     path: "",
+    exact: true,
   },
   {
     name: "Appointments",
     path: "/appointments",
+    exact: false,
   },
   {
     name: "Doctors",
     path: "/doctors",
+    exact: false,
   },
 ];
 
@@ -39,17 +43,20 @@ const PatientDashboard = () => {
       <Header userName={user?.patientProfile?.name} links={patientLinks} />
       <div className="container">
         <Switch>
-          <Route exact path={match.path}>
-            Dashboard
-          </Route>
-          <Route path={`${match.path}/appointments`}>
+          <Route exact path={`${match.path}/appointments`}>
             <PatientAppointments />
+          </Route>
+          <Route path={`${match.path}/appointments/:id`}>
+            <AppointmentDetails />
           </Route>
           <Route exact path={`${match.path}/doctors`}>
             <Doctors />
           </Route>
           <Route path={`${match.path}/doctors/:id`}>
             <DoctorPage />
+          </Route>
+          <Route exact path={match.path}>
+            Dashboard
           </Route>
         </Switch>
       </div>

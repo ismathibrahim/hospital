@@ -1,0 +1,20 @@
+.free-slot {
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.05);
+  background-color: #fff;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  padding: 5px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgb(221, 220, 228);
+  }
+}
+
+.blocked-slot {
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.05);
+  background-color: rgb(159, 172, 206);
+  border-radius: 5px;
+  margin-bottom: 5px;
+  padding: 5px;
+}

@@ -16,6 +16,15 @@ export enum Role {
   ADMIN = "ADMIN",
 }
 
+export interface Patient {
+  id: number;
+  userId: number;
+  name: string;
+  gender: string;
+  phone: string;
+  birthday: string;
+}
+
 export interface Doctor {
   id: number;
   name: string;
@@ -30,14 +39,47 @@ export interface Doctor {
 export interface Appointment {
   id: number;
   createdAt: string;
-  startTime: string;
-  endTime: string;
+  date: string;
+  time: string;
   status: string;
   patientId: number;
+  patient: Patient;
   doctorId: number;
+  doctor: Doctor;
+  reason: string;
+  notes: string;
 }
 
 export interface Specialty {
   id: number;
   name: string;
+}
+
+export interface NewAppointment {
+  date: string;
+  time: string;
+  patientId: number;
+  doctorId: number;
+  reason: string;
+  notes: string;
+}
+
+export interface NewPatient {
+  name: string;
+  email: string;
+  password: string;
+  gender: string;
+  phone: string;
+  birthday: string;
+}
+
+export interface NewDoctor {
+  name: string;
+  email: string;
+  password: string;
+  gender: string;
+  phone: string;
+  specialtyId: number;
+  experience: number;
+  qualification: string;
 }

@@ -4,9 +4,9 @@ import * as authController from "../controllers/auth.controller";
 
 router.get("/", authController.authorize, doctorsController.getAllDoctors);
 
-router.post("/register", authController.validate, doctorsController.register);
+router.post("/register", doctorsController.register);
 
-router.post("/login", authController.validate, authController.login);
+router.post("/login", authController.login);
 
 router.get(
   "/verify-login",

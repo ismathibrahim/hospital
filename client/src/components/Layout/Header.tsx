@@ -7,6 +7,7 @@ import "./Header.scss";
 type Route = {
   name: string;
   path: string;
+  exact: boolean;
 };
 type HeaderProps = {
   userName: string;
@@ -21,7 +22,11 @@ const Header = ({ userName, links }: HeaderProps) => {
       <div className="logo">Hospital</div>
       <div className="nav-links">
         {links.map((link: Route) => (
-          <NavLink key={link.name} to={`${match.url}${link.path}`}>
+          <NavLink
+            key={link.name}
+            to={`${match.url}${link.path}`}
+            exact={link.exact}
+          >
             {link.name}
           </NavLink>
         ))}

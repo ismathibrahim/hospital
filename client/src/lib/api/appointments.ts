@@ -1,4 +1,17 @@
+import { NewAppointment } from "../types";
 import axiosClient from "./axiosClient";
+
+export const getAppointment = async (id: number) => {
+  try {
+    const config = { headers: { token: localStorage.token } };
+
+    const response = await axiosClient.get(`/appointments/${id}`, config);
+
+    return response.data;
+  } catch (error) {
+    console.error(error.message);
+  }
+};
 
 export const getAppointmentsForPatient = async () => {
   try {
@@ -12,49 +25,48 @@ export const getAppointmentsForPatient = async () => {
   }
 };
 
-export const addTodo = async (description: string) => {
+export const getAppointmentsForDoctor = async () => {
   try {
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("token", localStorage.token);
+    const config = { headers: { token: localStorage.token } };
 
-    const body = { description };
-    const response = await fetch("http://localhost:5000/todos", {
-      method: "POST",
-      headers: myHeaders,
-      body: JSON.stringify(body),
-    });
+    const response = await axiosClient.get("/appointments/doctor", config);
 
-    return await response.json();
-  } catch (err) {
-    console.error(err.message);
+    return response.data;
+  } catch (error) {
+    console.error(error.message);
   }
 };
 
-export const editTodo = async (id: number, description: string) => {
+export const getAppointmentsForDoctorByDate = async (
+  doctorId: number,
+  date: string
+) => {
   try {
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("token", localStorage.token);
+    const config = { headers: { token: localStorage.token } };
 
-    const body = { description };
-    await fetch(`http://localhost:5000/todos/${id}`, {
-      method: "PUT",
-      headers: myHeaders,
-      body: JSON.stringify(body),
-    });
-  } catch (err) {
-    console.error(err.message);
+    const response = await axiosClient.get(
+      `/appointments/doctor/${doctorId}/${date}`,
+      config
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error(error.message);
   }
 };
 
-export const deleteTodo = async (id: number) => {
+export const createAppointment = async (newAppointment: NewAppointment) => {
   try {
-    await fetch(`http://localhost:5000/todos/${id}`, {
-      method: "DELETE",
-      headers: { token: localStorage.token },
-    });
-  } catch (err) {
-    console.error(err.message);
+    const config = { headers: { token: localStorage.token } };
+
+    const response = await axiosClient.post(
+      `/appointments`,
+      newAppointment,
+      config
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error(error.message);
   }
 };

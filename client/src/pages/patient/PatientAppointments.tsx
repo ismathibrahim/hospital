@@ -1,11 +1,15 @@
+import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
+import { Link, useRouteMatch } from "react-router-dom";
 
 import { getAppointmentsForPatient } from "../../lib/api/appointments";
 import { Appointment } from "../../lib/types";
 
+import "./PatientAppointments.scss";
+
 const PatientAppointments = () => {
   const [appointments, setAppointments] = useState<Appointment[] | null>(null);
-
+  let match = useRouteMatch();
   useEffect(() => {
     const fetchAPI = async () => {
       setAppointments(await getAppointmentsForPatient());
@@ -20,7 +24,14 @@ const PatientAppointments = () => {
     <div>
       <h1>Patient Appointments</h1>
       {appointments.map((item: Appointment) => (
-        <div>{item.id}</div>
+        <Link to={`${match.url}/${item.id}`}>
+          <div className="row card" key={item.id}>
+            <div className="primary-attribute">{item.doctor?.name}</div>
+            <div>{dayjs(item.date).format("ddd, MMM DD")}</div>
+            <div>{item.time}</div>
+            <div>{item.reason}</div>
+          </div>
+        </Link>
       ))}
     </div>
   );

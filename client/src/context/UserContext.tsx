@@ -30,7 +30,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
       response.email
         ? dispatch({ type: "LOGIN", payload: response.user })
         : dispatch({ type: "LOGOUT" });
-    } catch (error) {
+    } catch (error: any) {
       console.error(error.message);
     }
   };
@@ -59,7 +59,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         type: "SET_CURRENT_USER",
         payload: response,
       });
-    } catch (error) {
+    } catch (error: any) {
       dispatch({
         type: "USER_ERROR",
         payload: error,

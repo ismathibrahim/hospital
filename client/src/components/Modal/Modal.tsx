@@ -1,12 +1,12 @@
 import React from "react";
 
-import { ReactComponent as CloseIcon } from "../assets/close-icon.svg";
+import { ReactComponent as CloseIcon } from "../../assets/close-icon.svg";
 import "./Modal.scss";
 
 type ModalProps = {
   modalHidden: boolean;
   handleClose: () => void;
-  handleOk: () => void;
+  handleOk: ([string]: any) => any;
   title: string;
   okText: string;
   cancelText?: string;

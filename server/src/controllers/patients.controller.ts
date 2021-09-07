@@ -1,58 +1,12 @@
-import jwt from "jsonwebtoken";
-import prisma from "../lib/prisma";
-import { Prisma } from "@prisma/client";
-import bcrypt from "bcrypt";
-import createJwt from "../utils/createJwt";
-import { NextFunction, Request, Response } from "express";
-import { UserStoredInToken } from "../interfaces/auth.interface";
-import { RequestWithUser } from "../interfaces/requests.interface";
+import * as patientService from "../services/patients.service";
+import { Request, Response } from "express";
 
 export const register = async (req: Request, res: Response) => {
   try {
-    const { name, email, password, role, gender, birthday, phone } = req.body;
+    const token = await patientService.registerPatient(req.body);
 
-    const user = await prisma.user.findUnique({
-      where: { email: email },
-    });
-
-    if (user) {
-      return res.status(401).json("User already exists");
-    }
-
-    const salt = await bcrypt.genSalt(10);
-
-    const bcryptPassword = await bcrypt.hash(password, salt);
-
-    const newUser = await prisma.user.create({
-      data: {
-        email,
-        password: bcryptPassword,
-        role,
-        patientProfile: {
-          create: {
-            name,
-            gender,
-            birthday: new Date(birthday),
-            phone,
-          },
-        },
-      },
-      select: {
-        id: true,
-        email: true,
-        password: true,
-        role: true,
-        patientProfile: true,
-      },
-    });
-
-    const token = createJwt({
-      id: newUser.id,
-      role,
-    });
-
-    res.json({ newUser });
-  } catch (error) {
+    res.json({ token });
+  } catch (error: any) {
     console.error(error.message);
     res.status(500).json("Server error");
   }
