@@ -5,6 +5,8 @@ import { useRouteMatch } from "react-router-dom";
 import { getAllDoctors } from "../../lib/api/doctors";
 import { Doctor } from "../../lib/types";
 
+import "./Doctors.scss";
+
 const Doctors = () => {
   const [doctors, setDoctors] = useState<Doctor[] | null>(null);
   let match = useRouteMatch();
@@ -21,16 +23,20 @@ const Doctors = () => {
   return (
     <div>
       <h1>Doctors</h1>
-      {doctors.map((doctor: Doctor) => (
-        <div key={doctor.id} className="doctor-card">
-          <div>{doctor.name}</div>
-          <div>{doctor.specialty?.name}</div>
-          <div>{doctor.gender}</div>
-          <div>{doctor.qualification}</div>
-          <div>experience: {doctor.experience}</div>
-          <Link to={`${match.path}/${doctor.id}`}>Continue</Link>
-        </div>
-      ))}
+      <div className="doctors-grid">
+        {doctors.map((doctor: Doctor) => (
+          <div key={doctor.id} className="card doctor-card">
+            <div>
+              <strong>{doctor.name}</strong>
+            </div>
+            <div>{doctor.specialty?.name}</div>
+            <div>Gender: {doctor.gender}</div>
+            <div>Qualification: {doctor.qualification}</div>
+            <div>Experience: {doctor.experience} years</div> <br />
+            <Link to={`${match.path}/${doctor.id}`}>Book now</Link>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

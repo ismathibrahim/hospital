@@ -8,7 +8,6 @@ import PrivateRoute from "./components/Auth/PrivateRoute";
 import Dashboard from "./pages/Dashboard";
 import PatientRegister from "./pages/patient/PatientRegister";
 import PatientLogin from "./pages/patient/PatientLogin";
-import DoctorRegister from "./pages/doctor/DoctorRegister";
 import DoctorLogin from "./pages/doctor/DoctorLogin";
 import AdminLogin from "./pages/admin/AdminLogin";
 
@@ -42,12 +41,6 @@ function App() {
 
           <PublicRoute path="/doctor/login" isAuthenticated={isAuthenticated}>
             <DoctorLogin />
-          </PublicRoute>
-          <PublicRoute
-            path="/doctor/register"
-            isAuthenticated={isAuthenticated}
-          >
-            <DoctorRegister />
           </PublicRoute>
 
           <PublicRoute path="/admin/login" isAuthenticated={isAuthenticated}>
