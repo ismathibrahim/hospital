@@ -70,8 +70,8 @@ enum Role {
 }
 
 enum Status {
-  REQUESTED
-  CONFIRMED
+  BOOKED
+  COMPLETED
   CANCELLED
   NOSHOW
 }

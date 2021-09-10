@@ -9,6 +9,7 @@ import PatientAppointments from "./PatientAppointments";
 import Doctors from "./Doctors";
 import DoctorPage from "./DoctorPage";
 import AppointmentDetails from "./AppointmentDetails";
+import DoctorsContainer from "./DoctorsContainer";
 
 const patientLinks = [
   {
@@ -50,7 +51,7 @@ const PatientDashboard = () => {
             <AppointmentDetails />
           </Route>
           <Route exact path={`${match.path}/doctors`}>
-            <Doctors />
+            <DoctorsContainer />
           </Route>
           <Route path={`${match.path}/doctors/:id`}>
             <DoctorPage />

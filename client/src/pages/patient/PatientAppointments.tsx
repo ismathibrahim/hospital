@@ -113,13 +113,13 @@ const PatientAppointments = () => {
         />
       </Modal>
       <div>
-        <h1>Patient Appointments</h1>
+        <h1>My Appointments</h1>
         {appointments.map((item: Appointment) => (
           <div className="row card" key={item.id}>
             <div className="primary-attribute">{item.doctor?.name}</div>
             <div>{dayjs(item.date).format("ddd, MMM DD")}</div>
             <div>{item.time}</div>
-            <div>{item.reason}</div>
+
             <div>{item.status}</div>
 
             {item.status === "BOOKED" ? (
