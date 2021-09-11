@@ -1,13 +1,17 @@
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { registerDoctor } from "../../lib/api/doctors";
 
 import Select from "react-select";
 
 import "./Register.scss";
+import { Specialty } from "../../lib/types";
+import { getAllSpecialties } from "../../lib/api/specialties";
 
 const NewDoctor = () => {
   const history = useHistory();
+
+  const [specialties, setSpecialties] = useState<Specialty[] | null>(null);
 
   const [inputs, setInputs] = useState({
     name: "",
@@ -20,37 +24,6 @@ const NewDoctor = () => {
   });
 
   const [specialtyId, setSpecialtyId] = useState<number | null>(null);
-
-  const specialties = [
-    {
-      value: 1,
-      label: "Dentist",
-    },
-    {
-      value: 2,
-      label: "Primary Care Physician",
-    },
-    {
-      value: 3,
-      label: "Dermatologist",
-    },
-    {
-      value: 4,
-      label: "Eye Doctor",
-    },
-    {
-      value: 5,
-      label: "Psychiatrist",
-    },
-    {
-      value: 6,
-      label: "Chiropractor",
-    },
-    {
-      value: 7,
-      label: "Pediatrician",
-    },
-  ];
 
   const onSpecialtyChange = (option: any) => {
     setSpecialtyId(option.value);
@@ -86,6 +59,23 @@ const NewDoctor = () => {
       console.error(error.message);
     }
   };
+
+  useEffect(() => {
+    const fetchAPI = async () => {
+      const specialties = await getAllSpecialties();
+      setSpecialties(
+        specialties.map((item: Specialty) => ({
+          value: item.id,
+          label: item.name,
+        }))
+      );
+    };
+
+    fetchAPI();
+    // eslint-disable-next-line
+  }, []);
+
+  if (specialties === null) return <div>Loading...</div>;
 
   const { name, email, password, gender, phone, qualification, experience } =
     inputs;
