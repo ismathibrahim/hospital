@@ -12,7 +12,7 @@ export const getAppointment = async (req: RequestWithUser, res: Response) => {
     res.json(appointment);
   } catch (error: any) {
     console.error(error.message);
-    return res.status(403).json("Server error");
+    return res.status(500).json("Server error");
   }
 };
 
@@ -28,7 +28,7 @@ export const getAllAppointmentsForPatient = async (
     res.json(appointments);
   } catch (error: any) {
     console.error(error.message);
-    return res.status(403).json("Server error");
+    return res.status(500).json("Server error");
   }
 };
 
@@ -45,7 +45,7 @@ export const getUpcomingAppointmentsForPatient = async (
     res.json(appointments);
   } catch (error: any) {
     console.error(error.message);
-    return res.status(403).json("Server error");
+    return res.status(500).json("Server error");
   }
 };
 
@@ -61,7 +61,7 @@ export const getAllAppointmentsForDoctor = async (
     res.json(appointments);
   } catch (error: any) {
     console.error(error.message);
-    return res.status(403).json("Server error");
+    return res.status(500).json("Server error");
   }
 };
 
@@ -78,7 +78,7 @@ export const getUpcomingAppointmentsForDoctor = async (
     res.json(appointments);
   } catch (error: any) {
     console.error(error.message);
-    return res.status(403).json("Server error");
+    return res.status(500).json("Server error");
   }
 };
 
@@ -97,7 +97,7 @@ export const getAppointmentsForDoctorByDate = async (
     res.json(appointments);
   } catch (error: any) {
     console.error(error.message);
-    return res.status(403).json("Server error");
+    return res.status(500).json("Server error");
   }
 };
 
@@ -117,7 +117,7 @@ export const createAppointment = async (req: Request, res: Response) => {
     res.json(newAppointment);
   } catch (error: any) {
     console.error(error.message);
-    return res.status(403).json("Server error");
+    return res.status(500).json("Server error");
   }
 };
 
@@ -130,7 +130,7 @@ export const cancelAppointment = async (req: Request, res: Response) => {
     res.json(appointment);
   } catch (error: any) {
     console.error(error.message);
-    return res.status(403).json("Server error");
+    return res.status(500).json("Server error");
   }
 };
 
@@ -148,7 +148,7 @@ export const rescheduleAppointment = async (req: Request, res: Response) => {
     res.json(appointment);
   } catch (error: any) {
     console.error(error.message);
-    return res.status(403).json("Server error");
+    return res.status(500).json("Server error");
   }
 };
 
@@ -161,7 +161,7 @@ export const noShowAppointment = async (req: Request, res: Response) => {
     res.json(appointment);
   } catch (error: any) {
     console.error(error.message);
-    return res.status(403).json("Server error");
+    return res.status(500).json("Server error");
   }
 };
 
@@ -176,6 +176,17 @@ export const completeAppointment = async (req: Request, res: Response) => {
     res.json(appointment);
   } catch (error: any) {
     console.error(error.message);
-    return res.status(403).json("Server error");
+    return res.status(500).json("Server error");
+  }
+};
+
+export const getNumberOfAppointments = async (req: Request, res: Response) => {
+  try {
+    const count = await appointmentService.getNumberOfAppointments();
+
+    res.json(count);
+  } catch (error: any) {
+    console.error(error.message);
+    return res.status(500).json("Server error");
   }
 };

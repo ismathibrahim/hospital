@@ -63,3 +63,7 @@ export const registerDoctor = async (registerDoctorDto: RegisterDoctorDto) => {
 
   return { id: newUser.doctorProfile?.id };
 };
+
+export const getNumberOfDoctors = async () => {
+  return await prisma.doctor.count();
+};

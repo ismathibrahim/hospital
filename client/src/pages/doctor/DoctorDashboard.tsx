@@ -26,10 +26,6 @@ const DoctorDashboard = () => {
   const { user } = useUserContext();
   let match = useRouteMatch();
 
-  useEffect(() => {
-    // eslint-disable-next-line
-  }, []);
-
   if (user === null) return null;
 
   return (

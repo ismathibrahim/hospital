@@ -25,16 +25,20 @@ const Doctors = () => {
         {" "}
         <button>New Doctor</button>
       </Link>
-      {doctors.map((doctor: Doctor) => (
-        <div key={doctor.id} className="doctor-card">
-          <div>{doctor.name}</div>
-          <div>{doctor.specialty?.name}</div>
-          <div>{doctor.gender}</div>
-          <div>{doctor.qualification}</div>
-          <div>experience: {doctor.experience}</div>
-          <Link to={`${match.path}/${doctor.id}`}>Continue</Link>
-        </div>
-      ))}
+      <div className="doctors-grid">
+        {doctors.map((doctor: Doctor) => (
+          <div key={doctor.id} className="card doctor-card">
+            <div>
+              <strong>{doctor.name}</strong>
+            </div>
+            <div>{doctor.specialty?.name}</div>
+            <div>Gender: {doctor.gender}</div>
+            <div>Qualification: {doctor.qualification}</div>
+            <div>Experience: {doctor.experience} years</div> <br />
+            <Link to={`${match.path}/${doctor.id}`}>Details</Link>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

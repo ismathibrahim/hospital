@@ -13,6 +13,7 @@ router.get(
   authController.authorize,
   authController.verifyLogin
 );
+router.get("/count", doctorsController.getNumberOfDoctors);
 
 router.get("/:id", authController.authorize, doctorsController.getDoctor);
 

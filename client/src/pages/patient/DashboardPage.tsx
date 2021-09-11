@@ -87,7 +87,7 @@ const DashboardPage = () => {
   }, [updateCount]);
 
   if (appointments === null) return <div>Loading...</div>;
-  if (!appointments.length) return <div>No Appointments</div>;
+  if (!appointments.length) return <div>You have no upcoming appointments</div>;
   return (
     <>
       <Modal

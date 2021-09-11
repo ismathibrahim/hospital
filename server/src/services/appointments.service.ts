@@ -156,3 +156,7 @@ export const completeAppointment = async (id: number) => {
     },
   });
 };
+
+export const getNumberOfAppointments = async () => {
+  return await prisma.appointment.count();
+};

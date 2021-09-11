@@ -51,3 +51,7 @@ export const registerPatient = async (
 
   return token;
 };
+
+export const getNumberOfPatients = async () => {
+  return await prisma.patient.count();
+};

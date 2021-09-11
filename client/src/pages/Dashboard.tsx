@@ -18,8 +18,8 @@ const Dashboard = () => {
 
   if (user?.role === Role.ADMIN) return <AdminDashboard />;
   if (user?.role === Role.DOCTOR) return <DoctorDashboard />;
-
-  return <PatientDashboard />;
+  if (user?.role === Role.PATIENT) return <PatientDashboard />;
+  return <div>You're not logged in</div>;
 };
 
 export default Dashboard;

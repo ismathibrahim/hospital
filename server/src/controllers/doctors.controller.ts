@@ -13,7 +13,7 @@ export const getAllDoctors = async (req: Request, res: Response) => {
     res.json(doctors);
   } catch (error: any) {
     console.error(error.message);
-    return res.status(403).json("Server error");
+    return res.status(500).json("Server error");
   }
 };
 
@@ -34,7 +34,7 @@ export const getDoctor = async (req: Request, res: Response) => {
     res.json(doctors);
   } catch (error: any) {
     console.error(error.message);
-    return res.status(403).json("Server error");
+    return res.status(500).json("Server error");
   }
 };
 
@@ -46,5 +46,16 @@ export const register = async (req: Request, res: Response) => {
   } catch (error: any) {
     console.error(error.message);
     res.status(500).json("Server error");
+  }
+};
+
+export const getNumberOfDoctors = async (req: Request, res: Response) => {
+  try {
+    const count = await doctorService.getNumberOfDoctors();
+
+    res.json(count);
+  } catch (error: any) {
+    console.error(error.message);
+    return res.status(500).json("Server error");
   }
 };

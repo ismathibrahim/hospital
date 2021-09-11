@@ -17,8 +17,6 @@ router
 
 router.route("/doctor").get(appointmentsController.getAllAppointmentsForDoctor);
 
-router.route("/:id").get(appointmentsController.getAppointment);
-
 router.route("/cancel/:id").put(appointmentsController.cancelAppointment);
 router.route("/noshow/:id").put(appointmentsController.noShowAppointment);
 router.route("/complete/:id").put(appointmentsController.completeAppointment);
@@ -32,5 +30,9 @@ router
 router
   .route("/upcoming/doctor")
   .get(appointmentsController.getUpcomingAppointmentsForDoctor);
+
+router.route("/count").get(appointmentsController.getNumberOfAppointments);
+
+router.route("/:id").get(appointmentsController.getAppointment);
 
 export default router;

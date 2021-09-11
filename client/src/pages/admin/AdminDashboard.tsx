@@ -5,21 +5,16 @@ import { useUserContext } from "../../context/UserContext";
 import Header from "../../components/Layout/Header";
 
 import "../Dashboard.scss";
-import Statistics from "./Statistics";
 import Doctors from "./Doctors";
 import NewDoctor from "./NewDoctor";
 import DoctorPage from "./DoctorPage";
 import AppointmentDetails from "./AppointmentDetails";
+import DashboardPage from "./DashboardPage";
 
 const adminLinks = [
   {
     name: "Dashboard",
     path: "",
-    exact: true,
-  },
-  {
-    name: "Statistics",
-    path: "/statistics",
     exact: true,
   },
   {
@@ -44,9 +39,6 @@ const AdminDashboard = () => {
       <Header userName={user?.adminProfile?.name} links={adminLinks} />
       <div className="container">
         <Switch>
-          <Route exact path={`${match.path}/statistics`}>
-            <Statistics />
-          </Route>
           <Route path={`${match.path}/appointments/:id`}>
             <AppointmentDetails />
           </Route>
@@ -60,7 +52,7 @@ const AdminDashboard = () => {
             <DoctorPage />
           </Route>
           <Route exact path={match.path}>
-            Admin Dashboard
+            <DashboardPage />
           </Route>
         </Switch>
       </div>

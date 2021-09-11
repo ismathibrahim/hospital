@@ -6,4 +6,6 @@ router.post("/register", patientsController.register);
 
 router.post("/login", authController.login);
 
+router.get("/count", patientsController.getNumberOfPatients);
+
 export default router;

@@ -67,6 +67,18 @@ export const getUpcomingAppointmentsForDoctor = async () => {
   }
 };
 
+export const getNumberOfAppointments = async () => {
+  try {
+    const config = { headers: { token: localStorage.token } };
+
+    const response = await axiosClient.get("/appointments/count", config);
+
+    return response.data;
+  } catch (error: any) {
+    console.error(error.message);
+  }
+};
+
 export const getAppointmentsForDoctorByDate = async (
   doctorId: number,
   date: string

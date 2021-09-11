@@ -11,3 +11,14 @@ export const register = async (req: Request, res: Response) => {
     res.status(500).json("Server error");
   }
 };
+
+export const getNumberOfPatients = async (req: Request, res: Response) => {
+  try {
+    const count = await patientService.getNumberOfPatients();
+
+    res.json(count);
+  } catch (error: any) {
+    console.error(error.message);
+    return res.status(500).json("Server error");
+  }
+};
