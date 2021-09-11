@@ -16,7 +16,7 @@ import { getDateString } from "../../lib/utils/time";
 const DoctorPage = () => {
   const { user } = useUserContext();
   const [doctor, setDoctor] = useState<Doctor | null>(null);
-  const [date, setDate] = useState<Date>();
+  const [date, setDate] = useState<Date>(new Date());
   let history = useHistory();
   const [inputs, setInputs] = useState({
     reason: "",
@@ -124,14 +124,14 @@ const DoctorPage = () => {
           <div>Specialty: {doctor.specialty?.name}</div>
           <div>Gender: {doctor.gender}</div>
           <div>Qualification: {doctor.qualification}</div>
-          <div>Experience: {doctor.experience}</div>
+          <div>Experience: {doctor.experience} years</div>
         </div>
         <br />
         <hr />
         <br />
         Date:
         <DatePicker
-          date={date}
+          date={date || new Date()}
           onDateChange={onDateChange}
           locale={enGB}
           minimumDate={new Date()}

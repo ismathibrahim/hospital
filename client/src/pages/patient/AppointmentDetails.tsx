@@ -21,6 +21,7 @@ const AppointmentDetails = () => {
 
   return (
     <div className="appointment-page">
+      <h2>Appointment</h2>
       <div>Doctor name: {appointment.doctor.name}</div>
       <div>Date: {dayjs(appointment.date).format("ddd, MMM DD")}</div>
       <div>Time: {appointment.time}</div>
