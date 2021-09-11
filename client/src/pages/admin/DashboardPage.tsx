@@ -33,14 +33,13 @@ const DashboardPage = () => {
       <div>
         <h1>Dashboard</h1>
         <div className="card dashboard-card">
-          {appointments ? appointments : "0"}
-          Appointments
+          <strong>{appointments ? appointments : "0"}</strong> Appointments
         </div>
         <div className="card dashboard-card">
-          {doctors ? doctors : "0"} Doctors
+          <strong>{doctors ? doctors : "0"} </strong>Doctors
         </div>
         <div className="card dashboard-card">
-          {patients ? patients : "0"} Patients
+          <strong>{patients ? patients : "0"} </strong>Patients
         </div>
       </div>
     </>
