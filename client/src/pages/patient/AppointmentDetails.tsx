@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
 import { useRouteMatch } from "react-router-dom";
 import { getAppointment } from "../../lib/api/appointments";
@@ -20,8 +21,11 @@ const AppointmentDetails = () => {
 
   return (
     <div className="appointment-page">
-      <div>{appointment.doctor.name}</div>
-      <div>{appointment.patient.name}</div>
+      <div>Doctor name: {appointment.doctor.name}</div>
+      <div>Date: {dayjs(appointment.date).format("ddd, MMM DD")}</div>
+      <div>Time: {appointment.time}</div>
+      <div>Reason: {appointment.reason}</div>
+      <div>Additional notes: {appointment.notes}</div>
     </div>
   );
 };
