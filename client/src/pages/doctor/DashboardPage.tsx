@@ -4,15 +4,15 @@ import { Link, useRouteMatch } from "react-router-dom";
 import Modal from "../../components/Modal/Modal";
 
 import {
-  getAppointmentsForDoctor,
   noshowAppointment,
   completeAppointment,
+  getUpcomingAppointmentsForDoctor,
 } from "../../lib/api/appointments";
 import { Appointment } from "../../lib/types";
 import { getAge } from "../../lib/utils/time";
 
 import "./DoctorAppointments.scss";
-const DoctorAppointments = () => {
+const DashboardPage = () => {
   const [appointments, setAppointments] = useState<Appointment[] | null>(null);
   const [bookingToUpdate, setBookingToUpdate] = useState<number | null>(null);
   const [noShowModalHidden, setNoShowModalHidden] = useState(true);
@@ -57,7 +57,7 @@ const DoctorAppointments = () => {
 
   useEffect(() => {
     const fetchAPI = async () => {
-      setAppointments(await getAppointmentsForDoctor());
+      setAppointments(await getUpcomingAppointmentsForDoctor());
     };
     fetchAPI();
     // eslint-disable-next-line
@@ -88,7 +88,7 @@ const DoctorAppointments = () => {
         Are sure you want to mark this appointment as completed?
       </Modal>
       <div>
-        <h1>My Appointments</h1>
+        <h1>Upcoming Appointments</h1>
         {appointments.map((item: Appointment) => (
           <div className="row card" key={item.id}>
             <div className="primary-attribute">{item.patient?.name}</div>
@@ -118,4 +118,4 @@ const DoctorAppointments = () => {
   );
 };
 
-export default DoctorAppointments;
+export default DashboardPage;

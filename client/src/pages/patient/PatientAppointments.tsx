@@ -132,7 +132,7 @@ const PatientAppointments = () => {
               </>
             ) : null}
 
-            <Link to={`${match.url}/${item.id}`}>Details</Link>
+            <Link to={`/portal/appointments/${item.id}`}>Details</Link>
           </div>
         ))}
       </div>

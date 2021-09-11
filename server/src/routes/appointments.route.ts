@@ -26,4 +26,11 @@ router
   .route("/reschedule/:id")
   .put(appointmentsController.rescheduleAppointment);
 
+router
+  .route("/upcoming/patient")
+  .get(appointmentsController.getUpcomingAppointmentsForPatient);
+router
+  .route("/upcoming/doctor")
+  .get(appointmentsController.getUpcomingAppointmentsForDoctor);
+
 export default router;

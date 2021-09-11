@@ -6,6 +6,8 @@ import Header from "../../components/Layout/Header";
 
 import "../Dashboard.scss";
 import DoctorAppointments from "./DoctorAppointments";
+import DashboardPage from "./DashboardPage";
+import AppointmentDetails from "./AppointmentDetails";
 
 const doctorLinks = [
   {
@@ -16,11 +18,6 @@ const doctorLinks = [
   {
     name: "Appointments",
     path: "/appointments",
-    exact: true,
-  },
-  {
-    name: "Settings",
-    path: "/settings",
     exact: true,
   },
 ];
@@ -40,11 +37,14 @@ const DoctorDashboard = () => {
       <Header userName={user?.doctorProfile?.name} links={doctorLinks} />
       <div className="container">
         <Switch>
-          <Route path={`${match.path}/appointments`}>
+          <Route exact path={`${match.path}/appointments`}>
             <DoctorAppointments />
           </Route>
+          <Route path={`${match.path}/appointments/:id`}>
+            <AppointmentDetails />
+          </Route>
           <Route exact path={match.path}>
-            Doctor Dashboard
+            <DashboardPage />
           </Route>
         </Switch>
       </div>

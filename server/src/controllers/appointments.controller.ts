@@ -32,6 +32,23 @@ export const getAllAppointmentsForPatient = async (
   }
 };
 
+export const getUpcomingAppointmentsForPatient = async (
+  req: RequestWithUser,
+  res: Response
+) => {
+  try {
+    const appointments =
+      await appointmentService.getUpcomingAppointmentsForPatient(
+        Number(req.user.patientId)
+      );
+
+    res.json(appointments);
+  } catch (error: any) {
+    console.error(error.message);
+    return res.status(403).json("Server error");
+  }
+};
+
 export const getAllAppointmentsForDoctor = async (
   req: RequestWithUser,
   res: Response
@@ -40,6 +57,23 @@ export const getAllAppointmentsForDoctor = async (
     const appointments = await appointmentService.getAllAppointmentsForDoctor(
       Number(req.user.doctorId)
     );
+
+    res.json(appointments);
+  } catch (error: any) {
+    console.error(error.message);
+    return res.status(403).json("Server error");
+  }
+};
+
+export const getUpcomingAppointmentsForDoctor = async (
+  req: RequestWithUser,
+  res: Response
+) => {
+  try {
+    const appointments =
+      await appointmentService.getUpcomingAppointmentsForDoctor(
+        Number(req.user.doctorId)
+      );
 
     res.json(appointments);
   } catch (error: any) {

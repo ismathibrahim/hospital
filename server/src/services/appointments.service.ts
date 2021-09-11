@@ -35,9 +35,43 @@ export const getAllAppointmentsForPatient = async (patientId: number) => {
   });
 };
 
+export const getUpcomingAppointmentsForPatient = async (patientId: number) => {
+  return await prisma.appointment.findMany({
+    where: { patientId: patientId, status: "BOOKED" },
+    select: {
+      id: true,
+      date: true,
+      time: true,
+      createdAt: true,
+      status: true,
+      patient: true,
+      doctor: true,
+      reason: true,
+      notes: true,
+    },
+  });
+};
+
 export const getAllAppointmentsForDoctor = async (doctorId: number) => {
   return await prisma.appointment.findMany({
     where: { doctorId: doctorId },
+    select: {
+      id: true,
+      date: true,
+      time: true,
+      createdAt: true,
+      status: true,
+      patient: true,
+      doctor: true,
+      reason: true,
+      notes: true,
+    },
+  });
+};
+
+export const getUpcomingAppointmentsForDoctor = async (doctorId: number) => {
+  return await prisma.appointment.findMany({
+    where: { doctorId: doctorId, status: "BOOKED" },
     select: {
       id: true,
       date: true,

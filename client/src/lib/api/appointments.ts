@@ -25,11 +25,41 @@ export const getAppointmentsForPatient = async () => {
   }
 };
 
+export const getUpcomingAppointmentsForPatient = async () => {
+  try {
+    const config = { headers: { token: localStorage.token } };
+
+    const response = await axiosClient.get(
+      "/appointments/upcoming/patient",
+      config
+    );
+
+    return response.data;
+  } catch (error: any) {
+    console.error(error.message);
+  }
+};
+
 export const getAppointmentsForDoctor = async () => {
   try {
     const config = { headers: { token: localStorage.token } };
 
     const response = await axiosClient.get("/appointments/doctor", config);
+
+    return response.data;
+  } catch (error: any) {
+    console.error(error.message);
+  }
+};
+
+export const getUpcomingAppointmentsForDoctor = async () => {
+  try {
+    const config = { headers: { token: localStorage.token } };
+
+    const response = await axiosClient.get(
+      "/appointments/upcoming/doctor",
+      config
+    );
 
     return response.data;
   } catch (error: any) {
