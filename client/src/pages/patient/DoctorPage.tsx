@@ -120,15 +120,16 @@ const DoctorPage = () => {
       </Modal>
       <div className="doctor-page">
         <h1>{doctor.name}</h1>
-
-        <div key={doctor.id} className="doctor-card">
-          <div>{doctor.specialty?.name}</div>
-          <div>{doctor.gender}</div>
-          <div>{doctor.qualification}</div>
-          <div>experience: {doctor.experience}</div>
+        <div className="doctor-card">
+          <div>Specialty: {doctor.specialty?.name}</div>
+          <div>Gender: {doctor.gender}</div>
+          <div>Qualification: {doctor.qualification}</div>
+          <div>Experience: {doctor.experience}</div>
         </div>
-
+        <br />
         <hr />
+        <br />
+        Date:
         <DatePicker
           date={date}
           onDateChange={onDateChange}
