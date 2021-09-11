@@ -54,7 +54,6 @@ const Login = () => {
           />
 
           <div className="buttons">
-            <Link to="/doctor/register">Register</Link>
             <button>Signin</button>
           </div>
         </form>
